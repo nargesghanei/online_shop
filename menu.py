@@ -53,7 +53,7 @@
 #
 # cal.mainloop()
 import register
-
+import enter
 
 def menu():
     choice = 0
@@ -71,7 +71,12 @@ def menu():
         if choice == 1:
             register.Register()
         elif choice == 2:
-            pass
+            all_done = False
+            while not all_done:
+                username = input("Enter your username: ")
+                password = input("Enter your password: ")
+                ob = enter.Enter(username, password)
+                all_done = ob.check_enter()
         elif choice == 3:
             print("Have a great time. Goodbye!")
 
