@@ -1,5 +1,6 @@
 import file_handler
 from hashlib import sha256
+import product
 
 
 class Enter:
@@ -19,7 +20,9 @@ class Enter:
                     find = True
                     if user["password"] == self.hashed:
                         print("\nYou entered successfully!\n")
-                        return True
+                        ob = product.Product(user["shop_name"])
+                        ob.warning()
+                        return user
                     else:
                         raise Exception("Incorrect password!")
             if not find:
