@@ -13,6 +13,7 @@ class Register:
         self.shop_name = None
         self.work_hour_m = None
         self.work_hour = None
+        self.block_list = None
         while choice != 3:
             print("1-Register as a manager.")
             print("2-Register as a client.")
@@ -145,8 +146,7 @@ class Register:
             users = ob.read_file()
             for user in users:
                 if user["username"] == user_name:
-                    print("This username is already taken!")
-                    return False
+                    raise Exception("This username is already taken!")
             if user_name.isnumeric() and len(user_name) == 11:
                 print("User name accepted!")
                 return True
@@ -211,7 +211,8 @@ class Register:
     def add_to_file(self):
         new_user = {"role": self.role, "username": self.user_name,
                     "password": self.hashed, "shop_name": self.shop_name,
-                    "work_time": self.work_hour_m, "work_hour": self.work_hour}
+                    "work_time": self.work_hour_m, "work_hour": self.work_hour,
+                    "block_list": self.block_list}
         try:
             ob = file_handler.FileHandler("users.csv")
             ob.add_to_file(new_user)
