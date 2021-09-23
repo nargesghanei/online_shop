@@ -1,5 +1,6 @@
 import datetime
 import file_handler
+from prettytable import PrettyTable
 
 
 class Product:
@@ -104,7 +105,7 @@ class Product:
     def add_to_file(self):
         ob = file_handler.FileHandler("products.csv")
         new_product = {"shop_name": self.shop_name, "barcode": self.barcode,
-                       "name": self.name,"price": self.price, "brand": self.brand,
+                       "name": self.name, "price": self.price, "brand": self.brand,
                        "number": self.number, "expire_time": self.expire_time}
         ob.add_to_file(new_product)
         print(f"\nThe product added successfully,\
@@ -115,19 +116,25 @@ class Product:
     def show_products_list(self):
         ob = file_handler.FileHandler("products.csv")
         products = ob.read_file()
-        products_matrix = []
-        headers = ["barcode", "name", "price", "brand", "number", "expire time"]
-        products_matrix.append(headers)
+        table = PrettyTable()
+        table.field_names = ["barcode", "name", "price", "brand", "number", "expire time"]
+
+        # products_matrix = []
+        # headers = ["barcode", "name", "price", "brand", "number", "expire time"]
+        # products_matrix.append(headers)
+
         for product in products:
             if product["shop_name"] == self.shop_name:
                 row = [product["barcode"], product["name"], product["price"],
                        product["brand"], product["number"], product["expire_time"]]
-                products_matrix.append(row)
-        print("\nThe list of all products in this shop:\n")
-        for row in products_matrix:
-            for item in row:
-                print(item.ljust(20), end="")
-            print()
+                table.add_row(row)
+        print(table.get_string())
+                # products_matrix.append(row)
+        # print("\nThe list of all products in this shop:\n")
+        # for row in products_matrix:
+        #     for item in row:
+        #         print(item.ljust(20), end="")
+        #     print()
         print()
         self.warning()
 

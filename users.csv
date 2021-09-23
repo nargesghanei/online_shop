@@ -1,5 +1,1 @@
-role,username,password,shop_name,work_time,work_hour,block_list
-manager,09130805505,f07942a0197e369cf6eea760be0b70f9c0155c3b04a2506bb1f6da255c0f3d5b,karen,"(510, 1410)","('08:30', '23:30')",
-manager,09133656827,156bbabfc0d7996b02a5febad297934b8a42754ee563e0170c97305713352c88,kowsar,"(420, 1290)","('07:00', '21:30')",
-client,09919686579,a24acdccaac133433fd41c0893c5ea5b2b38ade2e751bad8d1ead8833594298f,,,,-karen-kowsar
-client,09131066579,a931ef0940af870a6c0e3a8fb38b5bd4b071c6eca5f8a4df066e53a73d88b482,,,,-kowsar-karen
+role,username,password,shop_name,work_time,work_hour,block_listmanager,09130805505,f07942a0197e369cf6eea760be0b70f9c0155c3b04a2506bb1f6da255c0f3d5b,karen,"(510, 1410)","('08:30', '23:30')",manager,09133656827,156bbabfc0d7996b02a5febad297934b8a42754ee563e0170c97305713352c88,kowsar,"(420, 1290)","('07:00', '21:30')",client,09919686579,a24acdccaac133433fd41c0893c5ea5b2b38ade2e751bad8d1ead8833594298f,,,,-karenclient,09131066579,a931ef0940af870a6c0e3a8fb38b5bd4b071c6eca5f8a4df066e53a73d88b482,,,,-kowsarmanager,09029375506,f07942a0197e369cf6eea760be0b70f9c0155c3b04a2506bb1f6da255c0f3d5b,rose,"(600, 1230)","('10:00', '20:30')",
