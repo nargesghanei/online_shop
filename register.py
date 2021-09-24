@@ -5,7 +5,7 @@ from hashlib import sha256
 class Register:
     def __init__(self):
         choice = 0
-        self.role = None
+        self.role =None
         self.user_name = None
         self.pass_word = None
         self.pass_word_again = False
