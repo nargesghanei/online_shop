@@ -4,6 +4,7 @@ import csv
 from datetime import datetime
 import buy
 
+
 class Access:
     def __init__(self, user):
         self.role = user["role"]
@@ -44,7 +45,7 @@ class Access:
                 ob = product.Product(self.shop_name)
                 ob.show_products_list()
             elif choice == 3:
-                pass
+                self.show_customers_invoices()
             elif choice == 4:
                 pass
             elif choice == 5:
@@ -84,20 +85,32 @@ class Access:
         ob.add_to_file(new_user)
         print(f"\nCustomer with id {username} is blocked from shop {self.shop_name} successfully!\n")
 
+    def show_customers_invoices(self):
+        ob = file_handler.FileHandler('invoices.csv')
+        invoices = ob.read_file()
+        start = True
+        for invoice in invoices:
+            start = True
+            shops = eval(invoice['purchase'])
+            for shop in shops:
+                if shop[0] == self.shop_name:
+                    if start:
+                        print(f"\nInvoices of client with username: {invoice['username']}:")
+                        start = False
+                        print(f"{shop[3]} {shop[1]} of brand {shop[2]} with total price {shop[4]}.")
+                    else:
+                        print(f"{shop[3]} {shop[1]} of brand {shop[2]} with total price {shop[4]}.")
+
+
     def show_customers_access(self):
         print(f"\nYou are a {self.role}.\n")
         choice = 0
-        while choice != 10:
+        while choice != 5:
             print("1-View previous invoices")
             print("2-View list of stores")
             print("3-Store search")
             print("4-Select a store")
-            print("5-View the list of goods")
-            print("6-Product search")
-            print("7-Selection of goods")
-            print("8-Show pre-invoice")
-            print("9-Confirm purchase or edit")
-            print("10-Log out")
+            print("5-Log out")
             try:
                 choice = int(input("Choose an option: "))
             except Exception as error:
@@ -112,15 +125,23 @@ class Access:
             elif choice == 4:
                 self.enter_to_a_store()
             elif choice == 5:
-                pass
+                self.show_pre_invoice()
             elif choice == 6:
-                pass
-            elif choice == 7:
-                pass
-            elif choice == 8:
-                pass
-            elif choice == 9:
-                pass
+                print("\n1- Confirm a purchase")
+                print("2- Edit your purchase")
+                done, option = False, None
+                while not done:
+                    try:
+                        option = int(input("Enter your option: "))
+                        if not (1 <= option <= 2):
+                            raise Exception("There is not such an option!")
+                    except Exception as error:
+                        print(f"{error} Please try again.")
+                    if option == 1:
+                        done = True
+                        self.confirm()
+                    elif option == 2:
+                        done = True
 
     def show_stores_list(self):
         ob = file_handler.FileHandler('users.csv')
@@ -163,14 +184,12 @@ class Access:
     def enter_to_a_store(self):
         print(f"\nYou entered {self.chosen_store}, Thank you for choosing us!\n")
         choice = 0
-        while choice != 6:
+        while choice != 4:
             print("What can we do for you?")
             print("1-View the list of products")
             print("2-Product search")
-            print("3-Selection of goods")
-            print("4-Show pre-invoice")
-            print("5-Confirm purchase or edit")
-            print("6-quit this shop")
+            print("3-Confirm purchase or edit")
+            print("4-quit this shop")
             try:
                 choice = int(input("Choose an option: "))
                 if not 1 <= choice <= 6:
@@ -179,14 +198,38 @@ class Access:
                 print(f"{error} Please try again.")
 
             if choice == 1:
-                ob = buy.Buy(self.chosen_store)
+                ob = buy.Buy(self.chosen_store, self.user_name)
                 ob.view_products()
             elif choice == 2:
-                ob = buy.Buy(self.chosen_store)
+                ob = buy.Buy(self.chosen_store, self.user_name)
                 ob.search_a_product()
             elif choice == 3:
                 pass
-            elif choice == 4:
-                pass
-            elif choice == 5:
-                pass
+
+    def show_pre_invoice(self):
+        ob = file_handler.FileHandler("pre_invoice.csv")
+        pre_invoices = ob.read_file()
+        i, total_price = 1, 0
+        print("\nYour all pre invoices: ")
+        for pre_invoice in pre_invoices:
+            if pre_invoice['username'] == self.user_name:
+                print(f"{i} - From store {pre_invoice['shop_name']} {pre_invoice['number']}\
+ {pre_invoice['name']} of brand {pre_invoice['brand']} with price {pre_invoice['payment']}.")
+                i += 1
+                total_price += float(pre_invoice['payment'])
+        print(f"\nTotal price untill now: {total_price} tooman.\n")
+
+    def confirm(self):
+        ob1 = file_handler.FileHandler("pre_invoice.csv")
+        pre_invoices = ob1.read_file()
+        ob2 = file_handler.FileHandler("invoices.csv")
+        shop_list, total_price = [], 0
+        for pre_invoice in pre_invoices:
+            if pre_invoice['username'] == self.user_name:
+                shopping = [pre_invoice['shop_name'], pre_invoice['name'],
+                            pre_invoice['brand'], pre_invoice['number'], pre_invoice['payment']]
+                total_price += float(pre_invoice['payment'])
+                shop_list.append(shopping)
+        new_invoice = {"username": self.user_name, "purchase": shop_list,
+                       "total_price": total_price}
+        ob2.add_to_file(new_invoice)

@@ -3,9 +3,9 @@ import csv
 
 
 class Buy:
-    def __init__(self, shop_name):
+    def __init__(self, shop_name, user_name):
         self.shop_name = shop_name
-        self.shopping_list = []
+        self.user_name = user_name
 
     def view_products(self):
         ob = file_handler.FileHandler('products.csv')
@@ -93,8 +93,18 @@ class Buy:
                                        "brand": product['brand'], "number": int(product['number']) - number,
                                        "expire_time": product['expire_time']}
                 ob.add_to_file(updated)
-                self.shopping_list.append([name, brand, number, float(updated['price'])*number])
-                print(self.shopping_list)
+                self.add_to_pre_invoice(name, brand, number, float(updated['price'])* number)
+
+    def add_to_pre_invoice(self, name, brand, number, payment):
+        ob = file_handler.FileHandler("pre_invoice.csv")
+        new_pre_invoice = {"username": self.user_name, "shop_name": self.shop_name,
+                           "name": name,"brand": brand, "number": number,
+                           "payment": payment}
+        ob.add_to_file(new_pre_invoice)
+        print(f"from store {self.shop_name}, {number} {name} of brand \
+{brand} with total price {payment} tooman was recorded for you.")
+
+
 
 
 
