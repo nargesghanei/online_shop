@@ -1,6 +1,6 @@
 import datetime
 import file_handler
-from prettytable import PrettyTable
+import csv
 
 
 class Product:
@@ -116,25 +116,21 @@ class Product:
     def show_products_list(self):
         ob = file_handler.FileHandler("products.csv")
         products = ob.read_file()
-        table = PrettyTable()
-        table.field_names = ["barcode", "name", "price", "brand", "number", "expire time"]
 
-        # products_matrix = []
-        # headers = ["barcode", "name", "price", "brand", "number", "expire time"]
-        # products_matrix.append(headers)
+        products_matrix = []
+        headers = ["barcode", "name", "price", "brand", "number", "expire time"]
+        products_matrix.append(headers)
 
         for product in products:
             if product["shop_name"] == self.shop_name:
                 row = [product["barcode"], product["name"], product["price"],
                        product["brand"], product["number"], product["expire_time"]]
-                table.add_row(row)
-        print(table.get_string())
-                # products_matrix.append(row)
-        # print("\nThe list of all products in this shop:\n")
-        # for row in products_matrix:
-        #     for item in row:
-        #         print(item.ljust(20), end="")
-        #     print()
+                products_matrix.append(row)
+        print("\nThe list of all products in this shop:\n")
+        for row in products_matrix:
+            for item in row:
+                print(item.ljust(20), end="")
+            print()
         print()
         self.warning()
 
@@ -147,3 +143,36 @@ class Product:
                     print(
                         f"WARNING:\nproduct with barcode: {product['barcode']}\
 ,name: {product['name']}, of brand: {product['brand']}, has only {product['number']} left!!!\n")
+
+    def charge(self):
+        ob = file_handler.FileHandler('products.csv')
+        products = ob.read_file()
+        barcode = input("Enter the barcode of product that you want to charge: ")
+        add = None
+        for product in products:
+            if product['shop_name'] == self.shop_name and product['barcode'] == barcode:
+                print(f"\nProduct found.It has {product['number']} left.")
+                added = False
+                while not added:
+                    try:
+                        add = int(input("How many do you want to add? "))
+                    except Exception as error:
+                        print(f"{error}, Please Try again!")
+                    else:
+                        added = True
+
+        fields = ["shop_name", "barcode", "name", "price", "brand", "number", "expire_time"]
+        with open("products.csv", 'w') as my_file:
+            writer = csv.DictWriter(my_file, fieldnames=fields)
+            writer.writeheader()
+            for product in products:
+                if product['barcode'] != barcode:
+                    ob.add_to_file(product)
+                else:
+                    new_product = {"shop_name": product['shop_name'],
+                                   "barcode": product['barcode'], "name": product['name'],
+                                   "price": product['price'], "brand": product['brand'],
+                                   "number": int(product['number']) + add,
+                                   "expire_time": product['expire_time']}
+        ob.add_to_file(new_product)
+        print(f"\nProduct with barcode {barcode} updated successfully!\n")

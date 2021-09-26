@@ -1,3 +1,1 @@
-username,purchase,total_price
-09919686579,"[['kowsar', 'bowl', 'goli', '4', '80000.0'], ['kowsar', 'dish', 'goli', '14', '490000.0']]",570000.0
-09131066579,"[['karen', 'shampoo', 'ave', '8', '392000.0'], ['karen', 'soap', 'golnar', '2', '11000.0']]",403000.0
+date,username,purchase,total_price"[2021, 9, 25]",09131066579,"[['karen', 'shampoo', 'ave', '3', '147000.0'], ['karen', 'soap', 'golnar', '2', '11000.0']]",158000.0"[2021, 9, 26]",09919686579,"[['kowsar', 'dish', 'goli', '12', '420000.0']]",420000.0
