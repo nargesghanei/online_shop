@@ -55,10 +55,16 @@
 import register
 import enter
 import access
+import logging
 
+
+# This function execute in the first of program
 def menu():
+    logging.basicConfig(filename='records.log', filemode='a',
+                        format='%(asctime)s  -  %(levelname)s - %(message)s',
+                        level=logging.INFO)
     choice = 0
-    while choice != 3:
+    while choice != 3:         # get option until quitting the program
         print("1-Don't you have an account? Register.")
         print("2-Already have an account? Enter.")
         print("3-Exit.")
@@ -69,16 +75,21 @@ def menu():
                 raise Exception("There is not such an option!")
         except Exception as error:
             print(f"{error}, Please Enter number between 1 to 3!")
+            logging.error(f"{error}  , Happened in menu.")
         if choice == 1:
             register.Register()
         elif choice == 2:
-            all_done= False
-            while not all_done:
+            all_done = False
+            while not all_done:  # untill all things add in the right way
                 username = input("Enter your username: ")
                 password = input("Enter your password: ")
                 ob = enter.Enter(username, password)
-                all_done = ob.check_enter()
-            ob = access.Access(all_done)
+                all_done = ob.check_enter() # check if the entered info are true
+                if not all_done:      # if information was not true
+                    logging.warning(f"Someone with username {username} \
+tried to enter but it was not successful.")
+            logging.info(f"User {all_done['username']} entered.")
+            ob = access.Access(all_done)      # information was true and go to access menu
             ob.show_access_menu()
         elif choice == 3:
             print("Have a great time. Goodbye!")

@@ -1,0 +1,41 @@
+2021-09-27 10:55:32,142  -  root - INFO - Store aziz added.
+2021-09-27 10:56:40,706  -  root - INFO - Store refah added.
+2021-09-27 11:00:58,673  -  root - INFO - User 09131066579 entered.
+2021-09-27 11:01:41,554  -  root - INFO - User 09130805505 entered.
+2021-09-27 11:04:17,227  -  root - WARNING - Someone with username 09130805505 tried to enter but it was not successful.
+2021-09-27 11:04:30,006  -  root - INFO - User 09130805505 entered.
+2021-09-27 11:09:05,635  -  root - INFO - User 09029375506 entered.
+2021-09-27 11:09:56,858  -  root - INFO - Product 24fdxh for store rose added.
+2021-09-27 11:14:04,526  -  root - INFO - User 09131066579 entered.
+2021-09-27 11:15:02,592  -  root - INFO - New invoice for client 09131066579 recorded.
+2021-09-27 11:19:06,371  -  root - WARNING - Someone with username 09919686579 tried to enter but it was not successful.
+2021-09-27 11:19:20,449  -  root - INFO - User 09919686579 entered.
+2021-09-27 11:19:58,393  -  root - INFO - New invoice for client 09919686579 recorded.
+2021-09-27 11:20:35,104  -  root - WARNING - Someone with username 09029685506 tried to enter but it was not successful.
+2021-09-27 11:20:58,885  -  root - INFO - User 09029375506 entered.
+2021-09-27 11:22:21,210  -  root - INFO - User 09029375506 entered.
+2021-09-27 11:23:19,819  -  root - WARNING - Someone with username 0909375506 tried to enter but it was not successful.
+2021-09-27 11:23:34,167  -  root - WARNING - Product 24fdxh of store rose finished.
+2021-09-27 11:23:34,168  -  root - INFO - User 09029375506 entered.
+2021-09-27 11:26:06,489  -  root - INFO - Client with username 09137312293 added.
+2021-09-27 11:27:33,466  -  root - INFO - User 09130805505 entered.
+2021-09-27 11:27:50,857  -  root - ERROR - invalid literal for int() with base 10: 'l'
+2021-09-27 11:32:16,263  -  root - INFO - User 09130805505 entered.
+2021-09-27 11:32:20,475  -  root - ERROR - There is not such an option! , happened in mangers access menu.
+2021-09-27 11:32:31,955  -  root - ERROR - invalid literal for int() with base 10: 'k' , happened in mangers access menu.
+2021-09-27 11:57:53,856  -  ERROR - Incorrect username!  , Happened in checking enter.
+2021-09-27 11:57:53,857  -  WARNING - Someone with username 09120212524 tried to enter but it was not successful.
+2021-09-27 11:58:06,766  -  INFO - User 09131066579 entered.
+2021-09-27 11:58:35,253  -  ERROR - This store is not available!  , Happened in searching stores.
+2021-09-27 11:59:02,460  -  ERROR - There is not such a search base!  , Happened in searching for a product.
+2021-09-27 11:59:41,925  -  INFO - New invoice for client 09131066579 recorded.
+2021-09-27 12:07:28,237  -  ERROR - This username is already taken!  , Happened in registering.
+2021-09-27 12:08:46,523  -  INFO - Store hendone with manager 09122565786 added.
+2021-09-27 12:09:32,374  -  INFO - Client with username 09856252552 added.
+2021-09-27 12:10:05,113  -  INFO - User 09133656827 entered.
+2021-09-27 12:11:21,855  -  INFO - Product ka& for store kowsar added.
+2021-09-27 12:19:11,225  -  INFO - User 09130805505 entered.
+2021-09-27 12:33:44,164  -  INFO - User 09130805505 entered.
+2021-09-27 12:36:32,421  -  INFO - User 09130805505 entered.
+2021-09-27 12:38:02,283  -  INFO - User 09130805505 entered.
+2021-09-27 12:39:55,865  -  INFO - User 09130805505 entered.

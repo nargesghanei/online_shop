@@ -1,9 +1,13 @@
 import file_handler
 import csv
+import logging
 
-
+# This class is for buying stuff and its for second faze and not completed yet
 class Buy:
     def __init__(self, shop_name, user_name):
+        logging.basicConfig(filename='records.log', filemode='a',
+                            format='%(asctime)s  -  %(levelname)s - %(message)s',
+                            level=logging.INFO)
         self.shop_name = shop_name
         self.user_name = user_name
 
@@ -35,6 +39,7 @@ class Buy:
                     raise Exception("There is not such a search base!")
             except Exception as error:
                 print(f"{error} Please try again.")
+                logging.error(f"{error}  , Happened in searching for a product.")
             if not searched:
                 continue
             if searched == 'name':
@@ -77,6 +82,7 @@ class Buy:
                             raise Exception("Sorry! There is not enough of your choice.")
                     except Exception as error:
                         print(f"{error} Please try again!")
+                        logging.error(f"{error}  , Happened in searching a product.")
                         break
                     buyed = product
                     break
