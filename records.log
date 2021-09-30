@@ -39,3 +39,20 @@
 2021-09-27 12:36:32,421  -  INFO - User 09130805505 entered.
 2021-09-27 12:38:02,283  -  INFO - User 09130805505 entered.
 2021-09-27 12:39:55,865  -  INFO - User 09130805505 entered.
+2021-09-30 10:50:41,959  -  INFO - Store alice with manager 09122567548 added.
+2021-09-30 10:50:48,271  -  ERROR - invalid literal for int() with base 10: ''  , Happened in registering menu.
+2021-09-30 10:51:10,841  -  INFO - Client with username 09188181811 added.
+2021-09-30 18:52:23,322  -  INFO - Client with username 09101066579 added.
+2021-09-30 18:52:48,731  -  ERROR - Incorrect username!  , Happened in checking enter.
+2021-09-30 18:52:48,731  -  WARNING - Someone with username 0901525254 tried to enter but it was not successful.
+2021-09-30 18:56:37,162  -  ERROR - This username is already taken!  , Happened in registering.
+2021-09-30 18:56:55,307  -  INFO - Client with username 09929686579 added.
+2021-09-30 19:08:10,987  -  INFO - User 09130805505 entered.
+2021-09-30 19:08:37,412  -  INFO - User 09131066579 entered.
+2021-09-30 19:09:56,816  -  INFO - User 09133656827 entered.
+2021-09-30 19:10:10,972  -  INFO - User 09919686579 entered.
+2021-09-30 19:36:28,132  -  INFO - User 09130805505 entered.
+2021-09-30 19:38:06,143  -  ERROR - time data '202-01-01' does not match format '%Y-%m-%d'  , Happened in searching invoices.
+2021-09-30 19:38:40,352  -  INFO - User 09131066579 entered.
+2021-09-30 19:50:36,158  -  INFO - User 09919686579 entered.
+2021-09-30 19:52:10,446  -  INFO - New invoice for client 09919686579 recorded.

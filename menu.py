@@ -52,19 +52,19 @@
 #                      text='Exit', command=lambda: btn_click('exit')).grid(row=2, column=0)
 #
 # cal.mainloop()
-import register
-import enter
+import sing_in
 import access
 import logging
+from manager import Manager
+from customer import Customer
 
 
 # This function execute in the first of program
 def menu():
-    logging.basicConfig(filename='records.log', filemode='a',
-                        format='%(asctime)s  -  %(levelname)s - %(message)s',
+    logging.basicConfig(filename='records.log', filemode='a', format='%(asctime)s  -  %(levelname)s - %(message)s',
                         level=logging.INFO)
     choice = 0
-    while choice != 3:         # get option until quitting the program
+    while choice != 3:  # get option until quitting the program
         print("1-Don't you have an account? Register.")
         print("2-Already have an account? Enter.")
         print("3-Exit.")
@@ -77,20 +77,22 @@ def menu():
             print(f"{error}, Please Enter number between 1 to 3!")
             logging.error(f"{error}  , Happened in menu.")
         if choice == 1:
-            register.Register()
+            sing_in.register()
         elif choice == 2:
-            all_done = False
-            while not all_done:  # untill all things add in the right way
+            user = False
+            while not user:  # until all things add in the right way
                 username = input("Enter your username: ")
                 password = input("Enter your password: ")
-                ob = enter.Enter(username, password)
-                all_done = ob.check_enter() # check if the entered info are true
-                if not all_done:      # if information was not true
-                    logging.warning(f"Someone with username {username} \
-tried to enter but it was not successful.")
-            logging.info(f"User {all_done['username']} entered.")
-            ob = access.Access(all_done)      # information was true and go to access menu
-            ob.show_access_menu()
+                user = sing_in.check_enter(username, password)  # check if the entered info are true
+                if not user:  # if information was not true
+                    logging.warning(f"Someone with username {username} tried to enter but it was not successful.")
+            logging.info(f"User {user['username']} entered.")
+            if user['role'] == 'manager':
+                ob = Manager(user)
+                ob.show_managers_access()  # information was true and go to access menu
+            elif user['role'] == 'client':
+                ob = Customer(user)
+                ob.show_customers_access()  # information was true and go to access menu
         elif choice == 3:
             print("Have a great time. Goodbye!")
 
