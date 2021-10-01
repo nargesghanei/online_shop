@@ -1,7 +1,7 @@
 import logging
 from file_handler import FileHandler
 from datetime import datetime
-import buy
+from product import Product
 
 
 # This class shows accesses of customer
@@ -19,13 +19,12 @@ class Customer:
     def show_customers_access(self):
         print(f"\nYou are a {self.role}.\n")
         choice = 0
-        while choice != 6:
+        while choice != 5:
             print("1-View previous invoices")
             print("2-View list of stores")
             print("3-Store search")
-            print("4-Select a store")
-            print("5-Confirm purchase or edit")
-            print("6-Log out")
+            print("4-Confirm purchase or edit")
+            print("5-Log out")
             try:
                 choice = int(input("Choose an option: "))
             except Exception as error:
@@ -38,8 +37,6 @@ class Customer:
             elif choice == 3:
                 self.search_store()
             elif choice == 4:
-                self.enter_to_a_store()
-            elif choice == 5:
                 print("\n1- Confirm a purchase")
                 print("2- Edit your purchase")
                 done, option = False, None
@@ -57,6 +54,7 @@ class Customer:
                         done = True
 
     def show_stores_list(self):
+        self.available_stores = []
         ob = FileHandler('users.csv')
         shops = ob.read_file()
         current_time = datetime.now().hour * 60 + datetime.now().minute
@@ -78,6 +76,7 @@ class Customer:
         print()
 
     def search_store(self):
+        self.show_stores_list()
         quitt = False
         print()
         while not quitt:
@@ -91,6 +90,7 @@ class Customer:
                     quitt = True
                     self.chosen_store = chosen_store
                     print("Have a great shopping time!\n")
+                    self.enter_to_a_store()
             except Exception as error:
                 print(f"{error} Please try again.")
                 logging.error(f"{error}  , Happened in searching stores.")
@@ -105,18 +105,20 @@ class Customer:
             print("3-quit this shop")
             try:
                 choice = int(input("Choose an option: "))
-                if not 1 <= choice <= 6:
+                if not 1 <= choice <= 3:
                     raise Exception("There is not such an option!")
             except Exception as error:
                 print(f"{error} Please try again.")
                 logging.error(f"{error}  , Happened in entering a store.")
 
             if choice == 1:
-                ob = buy.Buy(self.chosen_store, self.user_name)
-                ob.view_products()
+                ob = Product(self.chosen_store)
+                ob.show_products_list("client")
             elif choice == 2:
-                ob = buy.Buy(self.chosen_store, self.user_name)
-                ob.search_a_product()
+                ob = Product(self.chosen_store)
+                pre_invoice = ob.search_a_product()
+                if pre_invoice:
+                    self.add_to_pre_invoice(pre_invoice)
 
     def show_pre_invoice(self):
         ob = FileHandler("pre_invoice.csv")
@@ -149,3 +151,12 @@ class Customer:
         print(f"\nYour purchase with payment {new_invoice['total_price']}\
     tooman in {datetime.now()} recorded successfully!\n")
         logging.info(f"New invoice for client {new_invoice['username']} recorded.")
+
+    def add_to_pre_invoice(self, pre_invoice):
+        ob = FileHandler("pre_invoice.csv")
+        new_pre_invoice = {"username": self.user_name, "shop_name": self.chosen_store,
+                           "name": pre_invoice[0], "brand": pre_invoice[1], "number": pre_invoice[2],
+                           "payment": pre_invoice[3]}
+        ob.add_to_file(new_pre_invoice)
+        print(f"from store {self.chosen_store}, {pre_invoice[2]} {pre_invoice[0]} of brand {pre_invoice[1]} with total\
+ price {pre_invoice[3]} tooman was recorded for you.")

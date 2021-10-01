@@ -45,7 +45,7 @@ class Manager:
                 ob.charge()
             elif choice == 3:
                 ob = product.Product(self.shop_name)
-                ob.show_products_list()
+                ob.show_products_list("manager")
             elif choice == 4:
                 self.show_customers_invoices()
             elif choice == 5:

@@ -56,3 +56,16 @@
 2021-09-30 19:38:40,352  -  INFO - User 09131066579 entered.
 2021-09-30 19:50:36,158  -  INFO - User 09919686579 entered.
 2021-09-30 19:52:10,446  -  INFO - New invoice for client 09919686579 recorded.
+2021-10-01 22:31:32,318  -  INFO - User 09131066579 entered.
+2021-10-01 22:31:59,485  -  ERROR - This store is not available!  , Happened in searching stores.
+2021-10-01 22:43:37,711  -  INFO - User 09130805505 entered.
+2021-10-01 22:44:02,615  -  INFO - User 09131066579 entered.
+2021-10-01 23:00:49,337  -  INFO - User 09919686579 entered.
+2021-10-01 23:00:57,200  -  ERROR - This store is not available!  , Happened in searching stores.
+2021-10-01 23:01:10,563  -  ERROR - This store is not available!  , Happened in searching stores.
+2021-10-01 23:01:16,787  -  ERROR - This store is not available!  , Happened in searching stores.
+2021-10-01 23:01:19,873  -  ERROR - This store is not available!  , Happened in searching stores.
+2021-10-01 23:01:45,717  -  INFO - User 09131066579 entered.
+2021-10-01 23:09:40,661  -  INFO - User 09131066579 entered.
+2021-10-01 23:13:29,373  -  INFO - User 09131066579 entered.
+2021-10-01 23:14:58,472  -  INFO - User 09131066579 entered.

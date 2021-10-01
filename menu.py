@@ -53,7 +53,6 @@
 #
 # cal.mainloop()
 import sing_in
-import access
 import logging
 from manager import Manager
 from customer import Customer
