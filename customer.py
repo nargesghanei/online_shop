@@ -2,6 +2,7 @@ import logging
 from file_handler import FileHandler
 from datetime import datetime
 from product import Product
+import csv
 
 
 # This class shows accesses of customer
@@ -52,11 +53,11 @@ class Customer:
                         self.confirm()
                     elif option == 2:
                         done = True
+                        self.edit()
 
     def show_stores_list(self):
         self.available_stores = []
-        ob = FileHandler('users.csv')
-        shops = ob.read_file()
+        shops = Customer.read_from_file('users.csv')
         current_time = datetime.now().hour * 60 + datetime.now().minute
         blocked_shops = []
         for user in shops:
@@ -81,11 +82,13 @@ class Customer:
         print()
         while not quitt:
             try:
-                chosen_store = input("Enter the store that you want to buy from: ")
+                chosen_store = input("Enter the store that you want to buy from or -1 to quit: ")
                 if not chosen_store:
                     raise Exception("You should enter a shop name!")
-                if chosen_store not in self.available_stores:
+                if chosen_store not in self.available_stores and chosen_store != '-1':
                     raise Exception("This store is not available!")
+                if chosen_store == '-1':
+                    quitt = True
                 else:
                     quitt = True
                     self.chosen_store = chosen_store
@@ -121,8 +124,7 @@ class Customer:
                     self.add_to_pre_invoice(pre_invoice)
 
     def show_pre_invoice(self):
-        ob = FileHandler("pre_invoice.csv")
-        pre_invoices = ob.read_file()
+        pre_invoices = Customer.read_from_file('pre_invoice.csv')
         i, total_price = 1, 0
         print("\nYour all pre invoices: ")
         for pre_invoice in pre_invoices:
@@ -152,6 +154,18 @@ class Customer:
     tooman in {datetime.now()} recorded successfully!\n")
         logging.info(f"New invoice for client {new_invoice['username']} recorded.")
 
+        headers = ["username", "shop_name", "name", "brand", "number", "payment"]
+        with open("pre_invoice.csv", 'w') as my_file:
+            writer = csv.DictWriter(my_file, fieldnames=headers)
+            writer.writeheader()
+
+        for pre_invoice in pre_invoices:
+            if pre_invoice['username'] == self.user_name:
+                continue
+            else:
+                ob1.add_to_file(pre_invoice)
+        print('\nYour purchase confirmed successfully!\n')
+
     def add_to_pre_invoice(self, pre_invoice):
         ob = FileHandler("pre_invoice.csv")
         new_pre_invoice = {"username": self.user_name, "shop_name": self.chosen_store,
@@ -160,3 +174,31 @@ class Customer:
         ob.add_to_file(new_pre_invoice)
         print(f"from store {self.chosen_store}, {pre_invoice[2]} {pre_invoice[0]} of brand {pre_invoice[1]} with total\
  price {pre_invoice[3]} tooman was recorded for you.")
+
+    def edit(self):
+        ob = FileHandler("pre_invoice.csv")
+        pre_invoices = ob.read_file()
+        for pre_invoice in pre_invoices:
+            if pre_invoice['username'] == self.user_name:
+                print(f"{pre_invoice['number']} {pre_invoice['name']} of brand {pre_invoice['brand']} from shop\
+ {pre_invoice['shop_name']} with price {pre_invoice['payment']} .")
+
+        editing_shop = input("Which one do you want to delete? (name) ")
+
+        headers = ["username", "shop_name", "name", "brand", "number", "payment"]
+        with open("pre_invoice.csv", 'w') as my_file:
+            writer = csv.DictWriter(my_file, fieldnames=headers)
+            writer.writeheader()
+
+        for pre_invoice in pre_invoices:
+            if pre_invoice['username'] == self.user_name and pre_invoice['name'] == editing_shop:
+                continue
+            else:
+                ob.add_to_file(pre_invoice)
+        print("\nYour purchase edited successfully!\n")
+
+    @staticmethod
+    def read_from_file(file_name):
+        ob = FileHandler(file_name)
+        information = ob.read_file()
+        return information
