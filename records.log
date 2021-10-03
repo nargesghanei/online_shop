@@ -85,3 +85,26 @@
 2021-10-02 23:45:18,021  -  ERROR - This store is not available!  , Happened in searching stores.
 2021-10-02 23:46:14,675  -  INFO - User 09131066579 entered.
 2021-10-02 23:47:29,637  -  INFO - User 09131066579 entered.
+2021-10-03 21:47:51,826  -  INFO - User 09131066579 entered.
+2021-10-03 21:48:29,554  -  INFO - New invoice for client 09131066579 recorded.
+2021-10-03 21:49:14,310  -  INFO - User 09131066579 entered.
+2021-10-03 21:49:32,839  -  ERROR - There is not such a search base!  , Happened in searching for a product.
+2021-10-03 21:50:37,015  -  INFO - New invoice for client 09131066579 recorded.
+2021-10-03 21:51:09,907  -  INFO - User 09130805505 entered.
+2021-10-03 21:56:52,987  -  INFO - User 09919686579 entered.
+2021-10-03 22:01:54,591  -  INFO - User 09919686579 entered.
+2021-10-03 22:02:34,091  -  INFO - User 09919686579 entered.
+2021-10-03 22:06:20,651  -  INFO - User 09919686579 entered.
+2021-10-03 22:11:45,563  -  INFO - User 09131108496 entered.
+2021-10-03 22:11:59,873  -  ERROR - Invalid username!  , Happened in registering.
+2021-10-03 22:12:24,952  -  INFO - Client with username 09131658028 added.
+2021-10-03 22:12:44,834  -  INFO - User 09131658028 entered.
+2021-10-03 22:16:20,192  -  INFO - User 09131658028 entered.
+2021-10-03 22:16:38,918  -  INFO - New invoice for client 09131658028 recorded.
+2021-10-03 22:25:47,966  -  INFO - User 09133656827 entered.
+2021-10-03 22:26:50,412  -  INFO - Product klsdg for store kowsar added.
+2021-10-03 22:29:16,699  -  INFO - User 09133656827 entered.
+2021-10-03 22:31:47,630  -  ERROR - Incorrect password!  , Happened in checking enter.
+2021-10-03 22:31:47,631  -  WARNING - Someone with username 09101066579 tried to enter but it was not successful.
+2021-10-03 22:31:57,945  -  INFO - User 09101066579 entered.
+2021-10-03 22:32:11,952  -  ERROR - This store is not available!  , Happened in searching stores.

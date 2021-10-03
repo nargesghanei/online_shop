@@ -59,8 +59,7 @@ class Manager:
     # Shows list of all customers
     @staticmethod
     def show_customers_list():
-        ob = FileHandler("users.csv")
-        users = ob.read_file()  # read from file of users
+        users = Manager.read_from_file('users.csv')  # read from file of users
         i = 1  # counter
         print("\nAll customers list:\n")
         for user in users:
@@ -91,8 +90,7 @@ class Manager:
 
     # Shows invoices of all customers of users shop
     def show_customers_invoices(self):
-        ob = FileHandler('invoices.csv')
-        invoices = ob.read_file()
+        invoices = Manager.read_from_file('invoices.csv')
         start = True
         for invoice in invoices:
             start = True
@@ -109,8 +107,7 @@ class Manager:
 
     # This function searches invoices of clients base on date or username
     def invoice_search(self):
-        ob = FileHandler('invoices.csv')
-        invoices = ob.read_file()
+        invoices = Manager.read_from_file('invoices.csv')
         searched, choice = False, None
         while not searched:  # until get correct input
             try:
@@ -167,3 +164,9 @@ with total payment of {shop[4]}\n")
                     print(f"Client with username {username} not found!")
                 if (not find) and user_found:  # user was found but there is no invoices for this shop of this user
                     print("There is not any invoices for this user.\n")
+
+    @staticmethod
+    def read_from_file(file_name):
+        ob = FileHandler(file_name)
+        information = ob.read_file()
+        return information

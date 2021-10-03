@@ -1,5 +1,5 @@
 import datetime
-import file_handler
+from file_handler import FileHandler
 import csv
 import logging
 
@@ -120,7 +120,7 @@ class Product:
 
     # add products info to file
     def add_to_file(self):
-        ob = file_handler.FileHandler("products.csv")
+        ob = FileHandler("products.csv")
         new_product = {"shop_name": self.shop_name, "barcode": self.barcode,
                        "name": self.name, "price": self.price, "brand": self.brand,
                        "number": self.number, "expire_time": self.expire_time}
@@ -132,8 +132,7 @@ class Product:
 
     # faze 2 ...
     def show_products_list(self, user):
-        ob = file_handler.FileHandler("products.csv")
-        products = ob.read_file()
+        products = Product.read_from_file('products.csv')
 
         products_matrix = []
         if user == "manager":
@@ -165,8 +164,7 @@ class Product:
 
     # show warning to manager if a product going to finish
     def warning(self):
-        ob = file_handler.FileHandler("products.csv")
-        products = ob.read_file()
+        products = Product.read_from_file('products.csv')
         for product in products:
             if product["shop_name"] == self.shop_name:
                 if int(product["number"]) < 10:  # warn manager for less than 10 number of a product
@@ -178,7 +176,7 @@ class Product:
 
     # extra: charge a product
     def charge(self):
-        ob = file_handler.FileHandler('products.csv')
+        ob = FileHandler('products.csv')
         products = ob.read_file()
         # get the barcode of product that want to be added
         barcode = input("Enter the barcode of product that you want to charge: ")
@@ -211,11 +209,11 @@ class Product:
                                    "price": product['price'], "brand": product['brand'],
                                    "number": int(product['number']) + add,  # add the number to what it was
                                    "expire_time": product['expire_time']}
-        ob.add_to_file(new_product)  # append the updated product to file
-        print(f"\nProduct with barcode {barcode} updated successfully!\n")
+                    ob.add_to_file(new_product)  # append the updated product to file
+                    print(f"\nProduct with barcode {barcode} updated successfully!\n")
 
     def search_a_product(self):
-        ob = file_handler.FileHandler('products.csv')
+        ob = FileHandler('products.csv')
         products = ob.read_file()
         searched = False
         name, brand = None, None
@@ -294,3 +292,10 @@ class Product:
                 ob.add_to_file(updated)
                 pre_invoice = [name, brand, number, float(updated['price']) * number]
                 return pre_invoice
+
+    @staticmethod
+    def read_from_file(file_name):
+        ob = FileHandler(file_name)
+        information = ob.read_file()
+        return information
+

@@ -32,7 +32,7 @@ class Customer:
                 print(f"{error}. Please try again!")
 
             if choice == 1:
-                self.show_pre_invoice()
+                self.show_previous_invoice()
             elif choice == 2:
                 self.show_stores_list()
             elif choice == 3:
@@ -123,16 +123,16 @@ class Customer:
                 if pre_invoice:
                     self.add_to_pre_invoice(pre_invoice)
 
-    def show_pre_invoice(self):
-        pre_invoices = Customer.read_from_file('pre_invoice.csv')
+    def show_previous_invoice(self):
+        invoices = Customer.read_from_file('invoices.csv')
         i, total_price = 1, 0
-        print("\nYour all pre invoices: ")
-        for pre_invoice in pre_invoices:
-            if pre_invoice['username'] == self.user_name:
-                print(f"{i} - From store {pre_invoice['shop_name']} {pre_invoice['number']}\
- {pre_invoice['name']} of brand {pre_invoice['brand']} with price {pre_invoice['payment']}.")
+        print("\nYour all invoices: ")
+        for invoice in invoices:
+            if invoice['username'] == self.user_name:
+                for shop in eval(invoice['purchase']):
+                    print(f"{i} - From store {shop[0]} {shop[3]} {shop[1]} of brand {shop[2]} with price {shop[4]}.")
                 i += 1
-                total_price += float(pre_invoice['payment'])
+                total_price += float(invoice['total_price'])
         print(f"\nTotal price until now: {total_price} tooman.\n")
 
     def confirm(self):
@@ -140,31 +140,35 @@ class Customer:
         pre_invoices = ob1.read_file()
         ob2 = FileHandler("invoices.csv")
         shop_list, total_price = [], 0
+        print("\nList of all stuff in your pre invoice:\n")
         for pre_invoice in pre_invoices:
             if pre_invoice['username'] == self.user_name:
                 shopping = [pre_invoice['shop_name'], pre_invoice['name'],
                             pre_invoice['brand'], pre_invoice['number'], pre_invoice['payment']]
                 total_price += float(pre_invoice['payment'])
                 shop_list.append(shopping)
-        new_invoice = {"date": [datetime.now().year, datetime.now().month, datetime.now().day],
-                       "username": self.user_name, "purchase": shop_list,
-                       "total_price": total_price}
-        ob2.add_to_file(new_invoice)
-        print(f"\nYour purchase with payment {new_invoice['total_price']}\
-    tooman in {datetime.now()} recorded successfully!\n")
-        logging.info(f"New invoice for client {new_invoice['username']} recorded.")
+                print(f"From shop {shopping[0]} {shopping[3]} {shopping[1]} of brand {shopping[2]} with price {shopping[4]}")
+        confirming = input("Do you want to confirm and pay?(y/n)").strip().lower()
+        if confirming == 'y':
+            new_invoice = {"date": [datetime.now().year, datetime.now().month, datetime.now().day],
+                           "username": self.user_name, "purchase": shop_list,
+                           "total_price": total_price}
+            ob2.add_to_file(new_invoice)
+            print(f"\nYour purchase with payment {new_invoice['total_price']}\
+ tooman in {datetime.now()} recorded successfully!\n")
+            logging.info(f"New invoice for client {new_invoice['username']} recorded.")
 
-        headers = ["username", "shop_name", "name", "brand", "number", "payment"]
-        with open("pre_invoice.csv", 'w') as my_file:
-            writer = csv.DictWriter(my_file, fieldnames=headers)
-            writer.writeheader()
+            headers = ["username", "shop_name", "name", "brand", "number", "payment"]
+            with open("pre_invoice.csv", 'w') as my_file:
+                writer = csv.DictWriter(my_file, fieldnames=headers)
+                writer.writeheader()
 
-        for pre_invoice in pre_invoices:
-            if pre_invoice['username'] == self.user_name:
-                continue
-            else:
-                ob1.add_to_file(pre_invoice)
-        print('\nYour purchase confirmed successfully!\n')
+            for pre_invoice in pre_invoices:
+                if pre_invoice['username'] == self.user_name:
+                    continue
+                else:
+                    ob1.add_to_file(pre_invoice)
+            print('\nYour purchase confirmed successfully!\n')
 
     def add_to_pre_invoice(self, pre_invoice):
         ob = FileHandler("pre_invoice.csv")
