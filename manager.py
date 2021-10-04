@@ -165,6 +165,7 @@ with total payment of {shop[4]}\n")
                 if (not find) and user_found:  # user was found but there is no invoices for this shop of this user
                     print("There is not any invoices for this user.\n")
 
+    # This function reads a file and return info of that
     @staticmethod
     def read_from_file(file_name):
         ob = FileHandler(file_name)

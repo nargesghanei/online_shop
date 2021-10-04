@@ -5,7 +5,7 @@ import product
 
 
 def register():
-    logging.basicConfig(filename='records.log', filemode='a',format='%(asctime)s  -  %(levelname)s - %(message)s',
+    logging.basicConfig(filename='records.log', filemode='a', format='%(asctime)s  -  %(levelname)s - %(message)s',
                         level=logging.INFO)
     choice = 0
     while choice != 3:
@@ -30,7 +30,7 @@ def register():
 
 # This function is for entering to users account
 def check_enter(username, password):
-    logging.basicConfig(filename='records.log', filemode='a',format='%(asctime)s  -  %(levelname)s - %(message)s',
+    logging.basicConfig(filename='records.log', filemode='a', format='%(asctime)s  -  %(levelname)s - %(message)s',
                         level=logging.INFO)
     result = sha256(password.encode())  # hash password
     hashed = result.hexdigest()

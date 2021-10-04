@@ -130,14 +130,13 @@ class Product:
         \nprice: {self.price}\nbrand: {self.brand}\nnumber: {self.number}\
         \nexpire time: {self.expire_time}\n")
 
-    # faze 2 ...
+    # This function shows list of all products of a store
     def show_products_list(self, user):
         products = Product.read_from_file('products.csv')
-
-        products_matrix = []
-        if user == "manager":
+        products_matrix = []  # matrix of inventory
+        if user == "manager":  # show inventory if user is a manger with all details
             headers = ["barcode", "name", "price", "brand", "number", "expire time"]
-        elif user == "client":
+        elif user == "client":  # if user is a client show fewer information
             headers = ["name", "price", "brand", "expire time"]
         else:
             print("Invalid command!")
@@ -146,21 +145,21 @@ class Product:
         products_matrix.append(headers)
 
         for product in products:
-            if product["shop_name"] == self.shop_name:
+            if product["shop_name"] == self.shop_name:  # for all products in this shop
                 if user == "manager":
                     row = [product["barcode"], product["name"], product["price"], product["brand"], product["number"],
                            product["expire_time"]]
                 else:
                     row = [product["name"], product["price"], product["brand"], product["expire_time"]]
-                products_matrix.append(row)
+                products_matrix.append(row)  # add product to matrix
         print("\nThe list of all products in this shop:\n")
-        for row in products_matrix:
+        for row in products_matrix:  # print all products that has saved in matrix
             for item in row:
                 print(item.ljust(20), end="")
             print()
         print()
         if user == "manager":
-            self.warning()
+            self.warning()  # warn manager if inventory is going to be empty
 
     # show warning to manager if a product going to finish
     def warning(self):
@@ -212,13 +211,14 @@ class Product:
                     ob.add_to_file(new_product)  # append the updated product to file
                     print(f"\nProduct with barcode {barcode} updated successfully!\n")
 
+    # This function searches for a special product if base on name or brand
     def search_a_product(self):
         ob = FileHandler('products.csv')
         products = ob.read_file()
         searched = False
         name, brand = None, None
         print()
-        while not searched:
+        while not searched:  # until searching was finished
             try:
                 base = input("In which base do you want to search(name/brand)? ")
                 if base == 'name':
@@ -232,23 +232,23 @@ class Product:
                 logging.error(f"{error}  , Happened in searching for a product.")
             if not searched:
                 continue
-            if searched == 'name':
+            if searched == 'name':  # base on name
                 find = False
                 name = input("Enter the name of product: ")
                 if name:
                     print(f"\nList of all {name} in this store: (searching...)")
-                    for product in products:
+                    for product in products:  # show all products in this shop with the given name
                         if product['shop_name'] == self.shop_name and product['name'] == name:
                             find = True
                             print(f"Of brand: {product['brand']} with price: {product['price']} tooman.")
                     if not find:
                         print(f"Sorry! There is not any {name} in this store.\n")
-            elif searched == 'brand':
+            elif searched == 'brand':  # base on brand
                 find = False
                 brand = input("Enter the brand of product: ")
                 if brand:
                     print(f"\nList of all products with brand {brand} in this store: (searching...)")
-                    for product in products:
+                    for product in products:  # show all products in this shop with the given brand
                         if product['shop_name'] == self.shop_name and product['brand'] == brand:
                             find = True
                             print(f"name: {product['name']} with price: {product['price']} tooman.")
@@ -257,6 +257,7 @@ class Product:
             else:
                 continue
 
+            # give the choice
             if searched == "name":
                 brand = input(f"Enter the brand of {name} you want? ")
             elif searched == "brand":
@@ -267,8 +268,9 @@ class Product:
             for product in products:
                 if product['name'] == name and product['brand'] == brand:
                     try:
+                        # give the number of choice
                         number = int(input(f"How many {name} of {brand} do you want? "))
-                        if number > int(product['number']):
+                        if number > int(product['number']):  # there is not enough of this choice
                             raise Exception("Sorry! There is not enough of your choice.")
                     except Exception as error:
                         print(f"{error} Please try again!")
@@ -278,6 +280,7 @@ class Product:
                     buyed = product
                     break
             if buyed:
+                # update the number of this product in inventory and write to file
                 with open("products.csv", 'w') as my_file:
                     writer = csv.DictWriter(my_file, fieldnames=headers)
                     writer.writeheader()
@@ -293,9 +296,9 @@ class Product:
                 pre_invoice = [name, brand, number, float(updated['price']) * number]
                 return pre_invoice
 
+    # This function reads a file and return info of that
     @staticmethod
     def read_from_file(file_name):
         ob = FileHandler(file_name)
         information = ob.read_file()
         return information
-

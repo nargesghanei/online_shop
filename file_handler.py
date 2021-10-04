@@ -25,5 +25,3 @@ class FileHandler:
             if myfile.tell() == 0:
                 writer.writeheader()
             writer.writerows(new_value)
-
-
