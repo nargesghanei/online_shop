@@ -1,3 +1,32 @@
-**Shoppig Management System**
+# Shop Management System
 
-This project is an online shop that demonstrates the use of object-oriented programming (OOP) principles in Python. The project aims to create a realistic and interactive shopping experience for users through a command-line interface. Users can buy and sell different kinds of products, such as books, electronics, clothing, etc. Users can also manage their accounts, carts, and orders. The project also allows users to register as sellers and add their own products to the shop. Sellers can set their own prices, descriptions, and categories for their products. Sellers can also view and update their inventory, sales, and earnings. The project showcases the benefits of OOP, such as inheritance, polymorphism, encapsulation, and abstraction, in designing and implementing a complex and modular system.
+## Overview
+
+The **Shop Management System** is an object-oriented Python application designed to streamline and enhance shop operations. This project utilizes core OOP principles to create a robust system for managing various aspects of a retail business. This is a simple project for
+my course in OOP Python.
+
+## Features
+
+- **Product Management:**
+  - Add, update, and delete products.
+  - Manage product details, including prices, descriptions, and categories.
+
+- **Customer Management:**
+  - Register and manage customer accounts.
+  - Track customer information and purchase history.
+
+- **Order Processing:**
+  - Create and manage orders.
+  - Track order status and process payments.
+
+- **Reporting:**
+  - Generate sales reports and track shop performance.
+  - Access detailed reports on inventory, sales, and customer activity.
+
+
+## Technologies Used
+
+- **Programming Language:** Python
+- **OOP Concepts:** Classes, inheritance, encapsulation, and polymorphism
+- **Data Storage:** In-memory data structures (e.g., lists, dictionaries, csv files)
+
