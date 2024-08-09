@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Shop Management System** is an object-oriented Python application designed to streamline and enhance shop operations. This project utilizes core OOP principles to create a robust system for managing various aspects of a retail business. This is a simple project for
+The **Shop Management System** is an object-oriented Python application designed to streamline and enhance shop operations. This project utilizes core OOP principles to create a robust system for managing various aspects of a store. This is a simple project for
 my course in OOP Python.
 
 ## Features
